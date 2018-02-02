@@ -7,18 +7,27 @@ const macAdressMatcher = /(([A-Z0-9]{2}:)){5}[A-Z0-9]{2}/
 
 module.exports = new EventEmitter()
 
-function currentEssid () {
+function getCurrentNetworkInfo() {
 	try {
-		return execSync('iwgetid -r').toString().trim()
+		let accessPointInfo = execSync('iwgetid -a').toString()
+
+		return {
+			frequency : execSync('iwgetid -f').toString().match(/Frequency:(.+?)GHz/)[1],
+			protocol 	: execSync('iwgetid -p').toString().match(/Protocol Name:"(.+?)"/)[1],
+			chanel 		: execSync('iwgetid -c').toString().match(/Channel:(.+?)\b/)[1],
+			bssid 		: accessPointInfo.match(macAdressMatcher)[0],
+			essid 		: execSync('iwgetid -r').toString().trim(),
+			iface 		: accessPointInfo.match(/^\b.+?\b/)[0],
+			mode 			: execSync('iwgetid -m').toString().match(/Mode:(.+)\b/)[1]
+		}
 	} catch (e) {
-		throw 'Can\'t get current essid'
+		throw 'Cannot retrieve network informations'
 	}
 }
 
 setTimeout(function () {
 	try {
-		let bssid = execSync('iwgetid -a').toString().match(macAdressMatcher)[0]
-		module.exports.emit('connected', {essid: currentEssid(), 'bssid': bssid})
+		module.exports.emit('connected', getCurrentNetworkInfo())
 	} catch (e) {
 		module.exports.emit('disconnected', 'Not connected')
 	}
@@ -32,10 +41,8 @@ iwevent.stdout.on('data', function(wifiStatus) {
 	}
 
 	if (cleanedwifiStatus.match('New Access Point/Cell address:')) {
-		let bssid = cleanedwifiStatus.match(macAdressMatcher)[0]
 		setTimeout(function () {
-			let essid = currentEssid ()
-			return module.exports.emit('connected', {'essid': essid, 'bssid': bssid})
+			return module.exports.emit('connected', getCurrentNetworkInfo())
 		}, 700)
 	}
 })
