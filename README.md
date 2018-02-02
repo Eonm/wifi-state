@@ -1,6 +1,6 @@
- # Wifi-status
+ # wifi-state
 
- Get wifi status on real time (connected/disconnected). While connected wifi-status returns the current acces point informations (essid, bssid, protocol, chanel, network interface, mode).
+ Get wifi-state on real time (connected/disconnected). While connected wifi-status returns the current acces point informations (essid, bssid, protocol, chanel, network interface, mode).
 
 ## Install
 
@@ -11,9 +11,9 @@ $ npm install wifi-status
  ## Usages
 
  ```js
-const wifiStatus = require('wifi-status')
+const wifiState = require('wifi-state')
 
- wifiStatus.on('connected', function(networkInfo) {
+ wifiState.on('connected', function(networkInfo) {
  /* networkInfo : { frequency: '5.18 ',
   protocol: 'IEEE 802.11',
   chanel: '36',
@@ -26,7 +26,7 @@ const wifiStatus = require('wifi-status')
 	console.log(networkInfo.bssid)
  })
 
- wifiStatus.on('disconnected', function(networkInfo) {
+ wifiState.on('disconnected', function(networkInfo) {
 	// return 'Not connected'
 	})
 ```

@@ -1,5 +1,5 @@
 {
-  "name": "wifi-status",
+  "name": "wifi-state",
   "version": "1.0.0",
   "description": "Fetch current wireless informations (essid, bssid, protocol, chanel, network interface, mode) in a passive way and in real time",
   "main": "index.js",
@@ -16,7 +16,7 @@
 		"wifi protocol",
 		"wifi mode",
     "iwevent",
-    "wifi-status"
+    "wifi-state"
   ],
   "author": "eonm",
   "license": "MIT"

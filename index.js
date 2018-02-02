@@ -33,14 +33,14 @@ setTimeout(function () {
 	}
 }, 300)
 
-iwevent.stdout.on('data', function(wifiStatus) {
-	let cleanedwifiStatus = wifiStatus.toString().trim()
+iwevent.stdout.on('data', function(wifiState) {
+	let cleanedwifiState = wifiState.toString().trim()
 
-	if (cleanedwifiStatus.match('Not-Associated')) {
+	if (cleanedwifiState.match('Not-Associated')) {
 		return module.exports.emit('disconnected', 'Not connected')
 	}
 
-	if (cleanedwifiStatus.match('New Access Point/Cell address:')) {
+	if (cleanedwifiState.match('New Access Point/Cell address:')) {
 		setTimeout(function () {
 			return module.exports.emit('connected', getCurrentNetworkInfo())
 		}, 700)
