@@ -1,0 +1,19 @@
+{
+  "name": "wifi-status",
+  "version": "1.0.0",
+  "description": "Get current wireless informations (essid, bssid) in a passive way and in real time with no intensive syscalls.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "wifi",
+    "wireless",
+    "essid",
+    "bssid",
+    "iwevent",
+    "wifi-status"
+  ],
+  "author": "eonm",
+  "license": "MIT"
+}
