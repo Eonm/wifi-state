@@ -3,7 +3,7 @@ Get wifi-state on real time (connected/disconnected). While connected wifi-statu
 ## Install
 
 ```
-$ npm install wifi-status
+$ npm install wifi-states
 ```
 
 ## Usages
