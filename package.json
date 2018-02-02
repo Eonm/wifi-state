@@ -1,7 +1,7 @@
 {
   "name": "wifi-state",
 	"email" : "eonm.dev@gmail.com",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Fetch current wireless informations (essid, bssid, protocol, chanel, network interface, mode) in a passive way and in real time.",
   "main": "index.js",
   "scripts": {

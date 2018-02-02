@@ -11,6 +11,8 @@ $ npm install wifi-states
  ```js
 const wifiState = require('wifi-state')
 
+wifiState.start() // start listening network information for live updates
+
 wifiState.on('connected', function(networkInfo) {
 /* networkInfo : { frequency: '5.18 ',
 protocol: 'IEEE 802.11',
@@ -25,8 +27,10 @@ console.log(networkInfo.bssid)
 })
 
 wifiState.on('disconnected', function(networkInfo) {
-// return 'Not connected'
+// networkInfo : 'Not connected'
 })
+
+wifiState.stop() // Otherwise the script will listening for ever for new network informations
 
 wifiState.networkInfo() /* => { frequency: '5.18',
 															protocol: 'IEEE 802.11',
@@ -37,6 +41,8 @@ wifiState.networkInfo() /* => { frequency: '5.18',
 															mode: 'Managed' }
 															*/
 ```
+* ``wifiState.on('XXXX', function() {})`` needs ``wifiState.start()`` of having being declared.
+* ``wifiState.networkInfo()`` works without ``wifiState.start()``
 
  __Notes :__
  * This script only works on linux.

@@ -1,7 +1,7 @@
 const spawn = require('child_process').spawn
 const execSync = require('child_process').execSync
 const EventEmitter = require('events').EventEmitter
-const iwevent = spawn('iwevent')
+let iwevent
 
 const macAdressMatcher = /(([A-Z0-9]{2}:)){5}[A-Z0-9]{2}/
 
@@ -27,24 +27,35 @@ let getCurrentNetworkInfo = function () {
 
 module.exports.networkInfo = getCurrentNetworkInfo
 
-setTimeout(function () {
+module.exports.start = function () {
+	iwevent = spawn('iwevent')
+	setTimeout(function () {
+		try {
+			module.exports.emit('connected', getCurrentNetworkInfo())
+		} catch (e) {
+			module.exports.emit('disconnected', 'Not connected')
+		}
+	}, 300)
+
+	iwevent.stdout.on('data', function(wifiState) {
+		let cleanedwifiState = wifiState.toString().trim()
+
+		if (cleanedwifiState.match('Not-Associated')) {
+			return module.exports.emit('disconnected', 'Not connected')
+		}
+
+		if (cleanedwifiState.match('New Access Point/Cell address:')) {
+			setTimeout(function () {
+				return module.exports.emit('connected', getCurrentNetworkInfo())
+			}, 700)
+		}
+	})
+}
+
+module.exports.stop = function StopWifiState (){
 	try {
-		module.exports.emit('connected', getCurrentNetworkInfo())
+		iwevent.kill()
 	} catch (e) {
-		module.exports.emit('disconnected', 'Not connected')
+		throw 'Cannot stop an unstarted process'
 	}
-}, 300)
-
-iwevent.stdout.on('data', function(wifiState) {
-	let cleanedwifiState = wifiState.toString().trim()
-
-	if (cleanedwifiState.match('Not-Associated')) {
-		return module.exports.emit('disconnected', 'Not connected')
-	}
-
-	if (cleanedwifiState.match('New Access Point/Cell address:')) {
-		setTimeout(function () {
-			return module.exports.emit('connected', getCurrentNetworkInfo())
-		}, 700)
-	}
-})
+}
