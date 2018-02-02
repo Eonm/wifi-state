@@ -1,7 +1,7 @@
 {
   "name": "wifi-status",
   "version": "1.0.0",
-  "description": "Get current wireless informations (essid, bssid) in a passive way and in real time with no intensive syscalls.",
+  "description": "Fetch current wireless informations (essid, bssid, protocol, chanel, network interface, mode) in a passive way and in real time",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -11,6 +11,10 @@
     "wireless",
     "essid",
     "bssid",
+		"network chanel",
+		"network interface",
+		"wifi protocol",
+		"wifi mode",
     "iwevent",
     "wifi-status"
   ],
