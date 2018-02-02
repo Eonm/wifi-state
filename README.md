@@ -11,24 +11,23 @@ $ npm install wifi-status
  ```js
 const wifiState = require('wifi-state')
 
- wifiState.on('connected', function(networkInfo) {
- /* networkInfo : { frequency: '5.18 ',
-  protocol: 'IEEE 802.11',
-  chanel: '36',
-  bssid: 'FF:FF:FF:FF:FF:FF',
-  essid: 'networkName',
-  iface: 'wlp7s0',
-  mode: 'Managed' }
- */
-	console.log(networkInfo.essid)
-	console.log(networkInfo.bssid)
- })
+wifiState.on('connected', function(networkInfo) {
+/* networkInfo : { frequency: '5.18 ',
+protocol: 'IEEE 802.11',
+chanel: '36',
+bssid: 'FF:FF:FF:FF:FF:FF',
+essid: 'networkName',
+iface: 'wlp7s0',
+mode: 'Managed' }
+*/
+console.log(networkInfo.essid)
+console.log(networkInfo.bssid)
+})
 
- wifiState.on('disconnected', function(networkInfo) {
-	// return 'Not connected'
-	})
+wifiState.on('disconnected', function(networkInfo) {
+// return 'Not connected'
+})
 ```
-
 
  __Notes :__
  * This script only works on linux.
