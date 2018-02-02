@@ -16,7 +16,8 @@
 		"wifi protocol",
 		"wifi mode",
     "iwevent",
-    "wifi-state"
+    "wifi-state",
+		"wifi events"
   ],
   "author": "eonm",
   "license": "MIT"
