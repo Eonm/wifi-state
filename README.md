@@ -27,6 +27,15 @@ console.log(networkInfo.bssid)
 wifiState.on('disconnected', function(networkInfo) {
 // return 'Not connected'
 })
+
+wifiState.networkInfo() /* => { frequency: '5.18',
+															protocol: 'IEEE 802.11',
+															chanel: '36',
+															bssid: 'FF:FF:FF:FF:FF:FF',
+															essid: 'networkName',
+															iface: 'wlp7s0',
+															mode: 'Managed' }
+															*/
 ```
 
  __Notes :__

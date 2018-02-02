@@ -7,7 +7,7 @@ const macAdressMatcher = /(([A-Z0-9]{2}:)){5}[A-Z0-9]{2}/
 
 module.exports = new EventEmitter()
 
-function getCurrentNetworkInfo() {
+let getCurrentNetworkInfo = function () {
 	try {
 		let accessPointInfo = execSync('iwgetid -a').toString()
 
@@ -24,6 +24,8 @@ function getCurrentNetworkInfo() {
 		throw 'Cannot retrieve network informations'
 	}
 }
+
+module.exports.networkInfo = getCurrentNetworkInfo
 
 setTimeout(function () {
 	try {
