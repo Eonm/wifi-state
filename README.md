@@ -1,9 +1,9 @@
-Get wifi-state on real time (connected/disconnected). While connected wifi-status returns the current acces point informations (essid, bssid, protocol, chanel, network interface, mode).
+Get wifi state on real time (connected/disconnected). While  you are connected to a wireless network _wifi-state_ will returns the current acces point informations (essid, bssid, protocol, chanel, network interface, mode). _Wifi-states_ will update access point information in real time each time you connect or disconnect from a wireless access point.
 
 ## Install
 
 ```
-$ npm install wifi-states
+$ npm install wifi-state
 ```
 
 ## Usages
@@ -11,9 +11,9 @@ $ npm install wifi-states
  ```js
 const wifiState = require('wifi-state')
 
-wifiState.start() // start listening network information for live updates
+wifiState.start() // start listening for network informations
 
-wifiState.on('connected', function(networkInfo) {
+wifiState.on('connected', function(networkInfo) { // get live updates of network informations
 /* networkInfo : { frequency: '5.18 ',
 protocol: 'IEEE 802.11',
 chanel: '36',
@@ -26,11 +26,12 @@ console.log(networkInfo.essid)
 console.log(networkInfo.bssid)
 })
 
-wifiState.on('disconnected', function(networkInfo) {
+wifiState.on('disconnected', function(networkInfo) { // get live updates of network informations
 // networkInfo : 'Not connected'
+console.log(networkInfo)
 })
 
-wifiState.stop() // Otherwise the script will listening for ever for new network informations
+wifiState.stop() // Stop wifi-state listener, otherwise it will listening for new network informations for ever.
 
 wifiState.networkInfo() /* => { frequency: '5.18',
 															protocol: 'IEEE 802.11',
@@ -46,5 +47,5 @@ wifiState.networkInfo() /* => { frequency: '5.18',
 
  __Notes :__
  * This script only works on linux.
- * This script requires iwevent to be installed (installed in most linux distributions).
+ * This script requires iwevent to be installed (already installed on most linux distributions).
  * This scipt only have been tesed with one wireless card.
