@@ -1,28 +1,28 @@
 {
   "name": "wifi-state",
-	"email" : "eonm.dev@gmail.com",
+  "email": "eonm.dev@gmail.com",
   "version": "1.1.0",
   "description": "Fetch current wireless informations (essid, bssid, protocol, chanel, network interface, mode) in a passive way and in real time.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-	"repository" :
-  { "type" : "git",
-		"url" : "https://github.com/Eonm/wifi-state"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Eonm/wifi-state"
   },
   "keywords": [
     "wifi",
     "wireless",
     "essid",
     "bssid",
-		"network chanel",
-		"network interface",
-		"wifi protocol",
-		"wifi mode",
+    "network chanel",
+    "network interface",
+    "wifi protocol",
+    "wifi mode",
     "iwevent",
     "wifi-state",
-		"wifi events"
+    "wifi events"
   ],
   "author": "eonm",
   "license": "MIT"
