@@ -1,8 +1,8 @@
 {
   "name": "wifi-state",
   "email": "eonm.dev@gmail.com",
-  "version": "1.1.0",
-  "description": "Fetch current wireless informations (essid, bssid, protocol, chanel, network interface, mode) in a passive way and in real time.",
+  "version": "2.0.0",
+  "description": "Fetch current wireless information (essid, bssid, protocol, chanel, network interface, mode) in a passive way and in real time.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

@@ -7,7 +7,7 @@ const macAdressMatcher = /(([A-Z0-9]{2}:)){5}[A-Z0-9]{2}/
 
 module.exports = new EventEmitter()
 
-let getCurrentNetworkInfo = function () {
+let getCurrentNetworkInfo = () => {
   try {
     let accessPointInfo = execSync('iwgetid -a').toString()
     return {
@@ -19,22 +19,16 @@ let getCurrentNetworkInfo = function () {
       iface     : accessPointInfo.match(/^\b.+?\b/)[0],
       mode      : execSync('iwgetid -m').toString().match(/Mode:(.+)\b/)[1]
     }
-  } catch (e) {
-    throw 'Cannot retrieve network informations'
-  }
+  } catch (e) {}
 }
 
-module.exports.networkInfo = getCurrentNetworkInfo
+module.exports.networkInfo = () => (multipleTry(getCurrentNetworkInfo,7))
 
-module.exports.start = function () {
+module.exports.start = () => {
   iwevent = spawn('iwevent')
-  setTimeout(function () {
-    try {
-      module.exports.emit('connected', getCurrentNetworkInfo())
-    } catch (e) {
-      module.exports.emit('disconnected', 'Not connected')
-    }
-  }, 300)
+    multipleTry(getCurrentNetworkInfo,20)
+    .then(networkInfo => module.exports.emit('connected', networkInfo))
+    .catch(err => module.exports.emit('disconnected', 'Not connected'))
 
   iwevent.stdout.on('data', function(wifiState) {
     let cleanedwifiState = wifiState.toString().trim()
@@ -44,17 +38,33 @@ module.exports.start = function () {
     }
 
     if (cleanedwifiState.match('New Access Point/Cell address:')) {
-      setTimeout(function () {
-        return module.exports.emit('connected', getCurrentNetworkInfo())
-      }, 700)
+      multipleTry(getCurrentNetworkInfo,100)
+      .then(networkInfo => module.exports.emit('connected', networkInfo))
     }
   })
 }
 
-module.exports.stop = function StopWifiState (){
+module.exports.stop = StopWifiState = () => {
   try {
     iwevent.kill()
   } catch (e) {
-    throw 'Cannot stop an unstarted process'
+    throw 'Cannot stop unstarted process'
   }
+}
+
+function multipleTry(cb,maxAttempts) {
+  return new Promise(function(resolve, reject) {
+    if (cb()) return resolve(cb())
+    let interval = setInterval(function () {
+      if (cb()) {
+        clearInterval(interval)
+        resolve(cb())
+      }
+      maxAttempts --
+      if (maxAttempts === 0) {
+        clearInterval(interval)
+        reject('Cannot retrieve network information')
+      }
+    }, 100);
+  })
 }
