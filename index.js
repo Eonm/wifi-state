@@ -8,20 +8,20 @@ const macAdressMatcher = /(([A-Z0-9]{2}:)){5}[A-Z0-9]{2}/
 module.exports = new EventEmitter()
 
 let getCurrentNetworkInfo = function () {
-try {
-  let accessPointInfo = execSync('iwgetid -a').toString()
-  return {
-    frequency : execSync('iwgetid -f').toString().match(/Frequency:(.+?)GHz/)[1],
-    protocol   : execSync('iwgetid -p').toString().match(/Protocol Name:"(.+?)"/)[1],
-    chanel     : execSync('iwgetid -c').toString().match(/Channel:(.+?)\b/)[1],
-    bssid     : accessPointInfo.match(macAdressMatcher)[0],
-    essid     : execSync('iwgetid -r').toString().trim(),
-    iface     : accessPointInfo.match(/^\b.+?\b/)[0],
-    mode       : execSync('iwgetid -m').toString().match(/Mode:(.+)\b/)[1]
+  try {
+    let accessPointInfo = execSync('iwgetid -a').toString()
+    return {
+      frequency : execSync('iwgetid -f').toString().match(/Frequency:(.+?)GHz/)[1],
+      protocol  : execSync('iwgetid -p').toString().match(/Protocol Name:"(.+?)"/)[1],
+      chanel    : execSync('iwgetid -c').toString().match(/Channel:(.+?)\b/)[1],
+      bssid     : accessPointInfo.match(macAdressMatcher)[0],
+      essid     : execSync('iwgetid -r').toString().trim(),
+      iface     : accessPointInfo.match(/^\b.+?\b/)[0],
+      mode      : execSync('iwgetid -m').toString().match(/Mode:(.+)\b/)[1]
+    }
+  } catch (e) {
+    throw 'Cannot retrieve network informations'
   }
-} catch (e) {
-  throw 'Cannot retrieve network informations'
-}
 }
 
 module.exports.networkInfo = getCurrentNetworkInfo
