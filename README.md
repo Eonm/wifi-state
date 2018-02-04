@@ -31,7 +31,7 @@ console.log(networkInfo)
 // 'Not connected'
 })
 
-wifiState.stop() // Stop wifi-state listener, otherwise it will listening for new network information for ever.
+wifiState.stop() // Stop wifi-state listener, otherwise it will listening for new network informat[^0b91]ion for ever.
 
 wifiState.networkInfo() // get manualy network information
   .then(networkInfo => console.log(networkInfo))
