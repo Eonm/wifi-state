@@ -3,7 +3,7 @@ Get wifi state on real time (connected/disconnected). While  you are connected t
 ## Install
 
 ```
-$ npm install wifi-state
+$ npm install wifi-state --save
 ```
 
 ## Usages
@@ -15,12 +15,12 @@ wifiState.start() // start listening for network informations
 
 wifiState.on('connected', function(networkInfo) { // get live updates of network informations
 /* networkInfo : { frequency: '5.18 ',
-protocol: 'IEEE 802.11',
-chanel: '36',
-bssid: 'FF:FF:FF:FF:FF:FF',
-essid: 'networkName',
-iface: 'wlp7s0',
-mode: 'Managed' }
+                  protocol: 'IEEE 802.11',
+                  chanel: '36',
+                  bssid: 'FF:FF:FF:FF:FF:FF',
+                  essid: 'networkName',
+                  iface: 'wlp7s0',
+                  mode: 'Managed' }
 */
 console.log(networkInfo.essid)
 console.log(networkInfo.bssid)
@@ -33,14 +33,15 @@ console.log(networkInfo)
 
 wifiState.stop() // Stop wifi-state listener, otherwise it will listening for new network informations for ever.
 
-wifiState.networkInfo() /* => { frequency: '5.18',
-															protocol: 'IEEE 802.11',
-															chanel: '36',
-															bssid: 'FF:FF:FF:FF:FF:FF',
-															essid: 'networkName',
-															iface: 'wlp7s0',
-															mode: 'Managed' }
-															*/
+wifiState.networkInfo() /*
+=> { frequency: '5.18',
+    protocol: 'IEEE 802.11',
+    chanel: '36',
+    bssid: 'FF:FF:FF:FF:FF:FF',
+    essid: 'networkName',
+    iface: 'wlp7s0',
+    mode: 'Managed' }
+*/
 ```
 * ``wifiState.on('XXXX', function() {})`` needs ``wifiState.start()`` of having being declared.
 * ``wifiState.networkInfo()`` works without ``wifiState.start()``
